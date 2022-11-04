@@ -18,6 +18,7 @@ public class ProdutorDirect {
         Queue queueCorinthians = new Queue("torcedor.corinthians");
         Queue queueSantos = new Queue("torcedor.santos");
         Queue queuePalmeiras = new Queue("torcedor.palmeiras");
+        Queue queueSaoVicente = new Queue("torcedor.saovicente");
 
         final String exchange = "exchange.torcedor";
 
@@ -25,6 +26,7 @@ public class ProdutorDirect {
         admin.declareQueue(queueCorinthians);
         admin.declareQueue(queueSantos);
         admin.declareQueue(queuePalmeiras);
+        admin.declareQueue(queueSaoVicente);
 
         DirectExchange exchangeTorcedor = new DirectExchange(exchange);
         admin.declareExchange(exchangeTorcedor);
@@ -33,6 +35,7 @@ public class ProdutorDirect {
         admin.declareBinding(BindingBuilder.bind(queueCorinthians).to(exchangeTorcedor).with("corinthians"));
         admin.declareBinding(BindingBuilder.bind(queueSantos).to(exchangeTorcedor).with("santos"));
         admin.declareBinding(BindingBuilder.bind(queuePalmeiras).to(exchangeTorcedor).with("palmeiras"));
+        admin.declareBinding(BindingBuilder.bind(queueSaoVicente).to(exchangeTorcedor).with("sao vicente"));
 
         RabbitTemplate template = new RabbitTemplate(Configuracao.getConnection());
 
@@ -41,6 +44,7 @@ public class ProdutorDirect {
         template.convertAndSend(exchange, "corinthians", "Augusto");
         template.convertAndSend(exchange, "palmeiras", "Paulo ");
         template.convertAndSend(exchange, "remo", "Carlos Hesketh");
+        template.convertAndSend(exchange, "sao vicente", "Gabriel Trudes Melo");
     }
 
 }
